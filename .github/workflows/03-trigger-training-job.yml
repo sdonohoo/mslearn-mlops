@@ -36,5 +36,5 @@ jobs:
     - name: Train a classification model on diabetes data in compute cluster
       run: |
         cd src
-        az ml job create --file job.yml
+        az ml job create --file job.yml --resource-group rg-dev-mlops --workspace-name mlw-dev-mlops
 
