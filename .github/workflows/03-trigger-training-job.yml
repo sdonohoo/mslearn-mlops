@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
     inputs:
       resource_group:
         description: 'Resource group name'
