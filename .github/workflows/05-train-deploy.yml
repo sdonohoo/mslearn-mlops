@@ -54,3 +54,23 @@ jobs:
         az ml online-endpoint create --name sd-diabetes-endpoint -f ./create-diabetes-endpoint.yml
         az ml online-deployment create --name sd-diabetes-deployment --endpoint sd-diabetes-endpoint -f ./deploy-diabetes-endpoint.yml --all-traffic
 
+  testdeployment:
+    runs-on: ubuntu-latest
+    environment: production
+    needs: deploy
+    steps:
+    - name: Check out repo
+      uses: actions/checkout@main
+    - name: Install az ml extension
+      run: az extension add -n ml -y
+    - name: Azure login
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+    - name: Set Azure ML workspace as default
+      run: |
+        az configure --defaults group="rg-dev-mlops"
+        az configure --defaults workspace="mlw-dev-mlops"
+    - name: Test new endpoint if deployment is successful
+      run: |
+        az ml online-endpoint invoke --name sd-diabetes-endpoint --request-file ./experimentation/data/test_data.json
