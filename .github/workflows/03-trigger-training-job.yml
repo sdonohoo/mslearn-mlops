@@ -1,9 +1,6 @@
 name: Trigger training job on merge of pull request to main
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
     inputs:
       resource_group:
