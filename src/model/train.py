@@ -25,7 +25,11 @@ def main(args):
 
     # train model
     model = train_model(args.reg_rate, X_train, X_test, y_train, y_test)
-    return model
+
+    # the model folder produced from a job is registered. This includes the MLmodel file, model.pkl and the conda.yaml.
+    model_path = "model"
+    model_uri = 'runs:/{}/{}'.format(run_id, model_path)
+    mlflow.register_model(model_uri, "diabetes_model")
 
 
 def get_csvs_df(path):
