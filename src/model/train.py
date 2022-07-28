@@ -8,7 +8,6 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 
-# Code change
 
 # define functions
 
@@ -26,10 +25,7 @@ def main(args):
     # train model
     model = train_model(args.reg_rate, X_train, X_test, y_train, y_test)
 
-    # the model folder produced from a job is registered. This includes the MLmodel file, model.pkl and the conda.yaml.
-    model_path = "model"
-    model_uri = 'runs:/{}/{}'.format(run_id, model_path)
-    mlflow.register_model(model_uri, "diabetes_model")
+    return model
 
 
 def get_csvs_df(path):
