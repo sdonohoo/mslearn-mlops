@@ -44,7 +44,9 @@ jobs:
       run: |
         az configure --defaults group="rg-dev-mlops"
         az configure --defaults workspace="mlw-dev-mlops"
-    - name: List registered models
+    - name: Create endpoint and deploy registered model
       run: |
-        az ml model list
+        cd deploy
+        az ml online-endpoint create --name diabetes-endpoint -f ./create-diabetes-endpoint.yml
+        az ml online-deployment create --name diabetes-deployment --endpoint diabetes-endpoint -f ./deploy-diabetes-endpoint.yml --all-traffic
 
