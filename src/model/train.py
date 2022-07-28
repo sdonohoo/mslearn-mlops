@@ -8,7 +8,6 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 
-# Code change
 
 # define functions
 
@@ -25,6 +24,7 @@ def main(args):
 
     # train model
     model = train_model(args.reg_rate, X_train, X_test, y_train, y_test)
+
     return model
 
 
