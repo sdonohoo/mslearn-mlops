@@ -47,6 +47,6 @@ jobs:
     - name: Create endpoint and deploy registered model
       run: |
         cd deploy
-        az ml online-endpoint create --name diabetes-endpoint -f ./create-diabetes-endpoint.yml
-        az ml online-deployment create --name diabetes-deployment --endpoint diabetes-endpoint -f ./deploy-diabetes-endpoint.yml --all-traffic
+        az ml online-endpoint create --name sd-diabetes-endpoint -f ./create-diabetes-endpoint.yml
+        az ml online-deployment create --name sd-ddiabetes-deployment --endpoint sd-diabetes-endpoint -f ./deploy-diabetes-endpoint.yml --all-traffic
 
