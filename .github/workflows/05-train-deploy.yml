@@ -25,11 +25,12 @@ jobs:
     - name: Train and register a classification model on diabetes data in compute cluster
       run: |
         cd src
-        az ml job create --file job.yml --query name -o tsv
+        az ml job create --file job.yml
 
   deploy:
     runs-on: ubuntu-latest
     environment: production
+    needs: train
     steps:
     - name: Check out repo
       uses: actions/checkout@main
