@@ -25,7 +25,8 @@ jobs:
     - name: Train and register a classification model on diabetes data in compute cluster
       run: |
         cd src
-        az ml job create --file job.yml
+        RUN_ID=$(az ml job create --file job.yml --query name -o tsv)
+        az ml model create --name diabetes-model --path runs:/$RUN_ID/model/ --type mlflow_model 
 
   deploy:
     runs-on: ubuntu-latest
@@ -48,5 +49,5 @@ jobs:
       run: |
         cd deploy
         az ml online-endpoint create --name sd-diabetes-endpoint -f ./create-diabetes-endpoint.yml
-        az ml online-deployment create --name sd-ddiabetes-deployment --endpoint sd-diabetes-endpoint -f ./deploy-diabetes-endpoint.yml --all-traffic
+        az ml online-deployment create --name sd-diabetes-deployment --endpoint sd-diabetes-endpoint -f ./deploy-diabetes-endpoint.yml --all-traffic
 
